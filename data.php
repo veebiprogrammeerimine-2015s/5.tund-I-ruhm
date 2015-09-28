@@ -19,7 +19,42 @@
     // muutujad väärtustega
     $car_plate = $color = "";
     $car_plate_error = $color_error = "";
+    echo $_SESSION['logged_in_user_id'];
     
+    // valideerida välja ja käivita fn
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        
+        if(isset($_POST["add_car_plate"])){
+            
+            if ( empty($_POST["car_plate"]) ) {
+                $car_plate_error = "Auto nr on kohustuslik!";
+            }else{
+                $car_plate = cleanInput($_POST["car_plate"]);
+            }
+            
+            if ( empty($_POST["color"]) ) {
+                $color_error = "Auto värv on kohustuslik!";
+            }else{
+                $color = cleanInput($_POST["color"]);
+            }
+            
+            //erroreid ei olnud käivitan funktsiooni,
+            //mis sisestab andmebaasi
+            if($car_plate_error == "" && $color_error == ""){
+                createCarPlate($car_plate, $color);
+            }
+            
+        }
+    }
+    
+    
+    // kirjuta fn 
+    function cleanInput($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
 ?>
 
 Tere, <?=$_SESSION['logged_in_user_email'];?> <a href="?logout=1">Logi välja</a>
