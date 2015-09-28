@@ -14,7 +14,21 @@
         session_destroy();
         header("Location: login.php");
     }
+    
+    
+    // muutujad väärtustega
+    $car_plate = $color = "";
+    $car_plate_error = $color_error = "";
+    
 ?>
 
 Tere, <?=$_SESSION['logged_in_user_email'];?> <a href="?logout=1">Logi välja</a>
 
+<h2>Lisa uus</h2>
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
+    <label for="car_plate"> Auto nr </label>
+  	<input id="car_plate" name="car_plate" type="text" value="<?=$car_plate;?>"> <?=$car_plate_error;?><br><br>
+  	<label for="color"> Värv </label>
+    <input id="color" name="color" type="text" value="<?=$color;?>"> <?=$color_error;?><br><br>
+  	<input type="submit" name="add_car_plate" value="Lisa">
+  </form>

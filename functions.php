@@ -55,4 +55,12 @@
         $mysqli->close();
         
     }
+    
+    function createCarPlate() {
+        
+        
+        
+    }
+    
+    
  ?>
