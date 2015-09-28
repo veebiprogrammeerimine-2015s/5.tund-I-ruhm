@@ -63,10 +63,20 @@
         $stmt = $mysqli->prepare("INSERT INTO car_plates (user_id, number_plate, color) VALUES (?,?,?)");
         // i - on user_id INT
         $stmt->bind_param("iss", $_SESSION['logged_in_user_id'], $plate, $car_color);
-        $stmt->execute();
-        $stmt->close();
         
+        $message = "";
+        
+        // kui õnnestub siis tõene kui viga siis else
+        if($stmt->execute()){
+            // õnnestus
+            $message = "Edukalt andmebaasi salvestatud!";
+        }
+        
+        $stmt->close();
         $mysqli->close();
+        
+        // saadan sõnumi tagasi
+        return $message;
         
     }
     

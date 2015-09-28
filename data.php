@@ -17,7 +17,7 @@
     
     
     // muutujad väärtustega
-    $car_plate = $color = "";
+    $car_plate = $color = $m = "";
     $car_plate_error = $color_error = "";
     echo $_SESSION['logged_in_user_id'];
     
@@ -41,7 +41,14 @@
             //erroreid ei olnud käivitan funktsiooni,
             //mis sisestab andmebaasi
             if($car_plate_error == "" && $color_error == ""){
-                createCarPlate($car_plate, $color);
+                // m on message mille saadame functions.php
+                $m = createCarPlate($car_plate, $color);
+                
+                if($m != ""){
+                    // teeme vormi tühjaks
+                    $car_plate = "";
+                    $color = "";
+                }
             }
             
         }
@@ -66,4 +73,5 @@ Tere, <?=$_SESSION['logged_in_user_email'];?> <a href="?logout=1">Logi välja</a
   	<label for="color"> Värv </label>
     <input id="color" name="color" type="text" value="<?=$color;?>"> <?=$color_error;?><br><br>
   	<input type="submit" name="add_car_plate" value="Lisa">
+    <p style="color:green;"><?=$m;?></p>
   </form>
